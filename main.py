@@ -75,24 +75,6 @@ def insert_candidate(conn, cur, candidate_id, candidate_name, party_affiliation,
     conn.commit()
     
     
-#------------------------2nd option----Generate candidate data----------------------------------------------   
-'''def generate_candidate_data(candidate_number, total_parties):
-    response = requests.get(BASE_URL)
-    if response.status_code == 200:
-        user_data = response.json()['results'][0]
-
-
-        return {
-            "candidate_id": user_data['login']['uuid'],
-            "candidate_name": f"{user_data['name']['first']} {user_data['name']['last']}",
-            "party_affiliation": PARTIES[candidate_number % total_parties],
-            "biography": "A brief bio of the candidate.",
-            "campaign_platform": "Key campaign promises or platform.",
-            "photo_url": user_data['picture']['large']
-        }
-    else:
-        return "Error fetching data"    
-'''
 
 #------------------------------Generate Voters Data---------------------------------------------------------
 def generate_voter_data():

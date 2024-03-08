@@ -3,9 +3,7 @@ from pyspark.sql.functions import from_json, col
 from pyspark.sql.functions import sum as _sum
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, TimestampType
 import os
-# import pyspark
-#
-# print(pyspark.__version__) # to check the version of pyspark
+
 
 if __name__ == "__main__":
     # Initialize SparkSession
@@ -80,14 +78,7 @@ if __name__ == "__main__":
         .outputMode("update") \
         .start()
 
-    '''turnout_by_location_to_kafka = turnout_by_location.selectExpr("to_json(struct(*)) AS value") \
-        .writeStream \
-        .format("kafka") \
-        .option("kafka.bootstrap.servers", "localhost:9092") \
-        .option("topic", "aggregated_turnout_by_location") \
-        .option("checkpointLocation", "/home/patil/Real_time_voting_system_v1/checkpoints/checkpoint2") \
-        .outputMode("update") \
-        .start()                   '''
+
 
     # Await termination for the streaming queries
     votes_per_candidate_to_kafka.awaitTermination()

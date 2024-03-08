@@ -9,8 +9,6 @@ from streamlit_autorefresh import st_autorefresh
 import psycopg2
 import urllib.parse
 
- 
-# candidate_id
 
 # Function to create a Kafka consumer
 def create_kafka_consumer(topic_name):
@@ -21,6 +19,7 @@ def create_kafka_consumer(topic_name):
         auto_offset_reset='earliest',
         value_deserializer=lambda x: json.loads(x.decode('utf-8')))
     return consumer
+
 
 # Function to fetch voting statistics from PostgreSQL database
 @st.cache_data
@@ -43,6 +42,8 @@ def fetch_voting_stats():
 
     return voters_count, candidates_count
 
+
+
 # Function to fetch data from Kafka
 def fetch_data_from_kafka(consumer):
     # Poll Kafka consumer for messages within a timeout period
@@ -55,12 +56,8 @@ def fetch_data_from_kafka(consumer):
             data.append(sub_message.value)
     return data
 
-# Function to plot a colored bar chart for vote counts per candidate
 
 
-# Function to plot a donut chart for vote distribution
-
-# Function to plot a pie chart for vote distribution
 
 
 # Function to split a dataframe into chunks for pagination
@@ -69,7 +66,7 @@ def split_frame(input_df, rows):
     df = [input_df.loc[i: i + rows - 1, :] for i in range(0, len(input_df), rows)]
     return df
 
-# Function to paginate a table
+
 
 
 
@@ -122,6 +119,9 @@ def update_data():
 
     # Update the last refresh time
     st.session_state['last_update'] = time.time()
+    
+    
+    
 
 # Sidebar layout
 def sidebar():
@@ -143,6 +143,9 @@ topic_name = 'aggregated_votes_per_candidate'
 
 # Display sidebar
 sidebar()
+
+
+#--------------------------------------------------Initialise------------------------------------------------
 
 # Update and display data on the dashboard
 update_data()
