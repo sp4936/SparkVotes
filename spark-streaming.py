@@ -68,8 +68,8 @@ if __name__ == "__main__":
     # Aggregate votes per candidate and turnout by location
     votes_per_candidate = enriched_votes_df.groupBy("candidate_id", "candidate_name", "party_affiliation",
                                                     "photo_url").agg(_sum("vote").alias("total_votes"))
-    turnout_by_location = enriched_votes_df.groupBy("address.state").count().alias("total_votes")
-
+    '''    turnout_by_location = enriched_votes_df.groupBy("address.state").count().alias("total_votes")
+    '''
     # Write aggregated data to Kafka topics ('aggregated_votes_per_candidate', 'aggregated_turnout_by_location')
     votes_per_candidate_to_kafka = votes_per_candidate.selectExpr("to_json(struct(*)) AS value") \
         .writeStream \
@@ -80,15 +80,15 @@ if __name__ == "__main__":
         .outputMode("update") \
         .start()
 
-    turnout_by_location_to_kafka = turnout_by_location.selectExpr("to_json(struct(*)) AS value") \
+    '''turnout_by_location_to_kafka = turnout_by_location.selectExpr("to_json(struct(*)) AS value") \
         .writeStream \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "localhost:9092") \
         .option("topic", "aggregated_turnout_by_location") \
         .option("checkpointLocation", "/home/patil/Real_time_voting_system_v1/checkpoints/checkpoint2") \
         .outputMode("update") \
-        .start()
+        .start()                   '''
 
     # Await termination for the streaming queries
     votes_per_candidate_to_kafka.awaitTermination()
-    turnout_by_location_to_kafka.awaitTermination()
+    '''turnout_by_location_to_kafka.awaitTermination()'''

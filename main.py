@@ -65,7 +65,7 @@ def create_tables(conn, cur):
 
 
 #------------------------------------Insert Candidate Data Into Database------------------------------------
-'''def insert_candidate(conn, cur, candidate_id, candidate_name, party_affiliation, biography, campaign_platform, photo_url):
+def insert_candidate(conn, cur, candidate_id, candidate_name, party_affiliation, biography, campaign_platform, photo_url):
     encoded_url = urllib.parse.quote_plus(photo_url)
     query = """
         INSERT INTO candidates (candidate_id, candidate_name, party_affiliation, biography, campaign_platform, photo_url)
@@ -73,10 +73,10 @@ def create_tables(conn, cur):
     """
     cur.execute(query, (candidate_id, candidate_name, party_affiliation, biography, campaign_platform, encoded_url))
     conn.commit()
-    '''
+    
     
 #------------------------2nd option----Generate candidate data----------------------------------------------   
-def generate_candidate_data(candidate_number, total_parties):
+'''def generate_candidate_data(candidate_number, total_parties):
     response = requests.get(BASE_URL)
     if response.status_code == 200:
         user_data = response.json()['results'][0]
@@ -92,7 +92,7 @@ def generate_candidate_data(candidate_number, total_parties):
         }
     else:
         return "Error fetching data"    
-
+'''
 
 #------------------------------Generate Voters Data---------------------------------------------------------
 def generate_voter_data():
@@ -173,7 +173,7 @@ if __name__ == "__main__":                        #entry point of application
                 """)
     voters = cur.fetchall()
 
-    if len(candidates) == 0:
+    '''if len(candidates) == 0:
         for i in range(3):
             candidate = generate_candidate_data(i, 3)
             print(candidate)
@@ -183,9 +183,9 @@ if __name__ == "__main__":                        #entry point of application
                     """, (
                 candidate['candidate_id'], candidate['candidate_name'], candidate['party_affiliation'], candidate['biography'],
                 candidate['campaign_platform'], candidate['photo_url']))
-            conn.commit() 
+            conn.commit() '''
             
-    '''if len(candidates) == 0:
+    if len(candidates) == 0:
            
             #01
             insert_candidate(conn, cur, "1", "Narendra Modi", "Bhartiya Janta Party", "Member of RSS", "Rally,Social Media", "https://wallpapercave.com/wp/wp6727827.jpg")
@@ -195,7 +195,7 @@ if __name__ == "__main__":                        #entry point of application
            
             #03
             insert_candidate(conn, cur, "3","Arvind Kejrival","Aam Aadmi Party", "Member of Aam Aadmi Party", "Rally,Social Media", "https://www.letuspublish.com/wp-content/uploads/2014/08/ArvindKejriwalphoto.jpg")
-     '''       
+            
 #    if len(voters) == 0:
     for i in range(1000):
             voter_data = generate_voter_data()
